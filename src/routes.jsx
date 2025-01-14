@@ -1,33 +1,37 @@
 import { createBrowserRouter } from "react-router-dom";
-import Root from "./routes/Root/Root.jsx";
-import { loader as rootLoader } from "./routes/Root/utils.js";
+import Root from "./routes/Root.jsx";
 import Login from "./routes/Login.jsx";
 import Logout from "./routes/Logout.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
 import ErrorComponent from "./components/ErrorComponent.jsx";
+import GlobalContextProvider from "./utils/GlobalStateProvider.jsx";
 
 const routes = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
-        // loader: rootLoader,
+        element: <GlobalContextProvider />,
         errorElement: <ErrorComponent />,
-        // HydrateFallback: HydrateFallbackRoot,
-    },
-    {
-        path: "/login",
-        element: <Login />,
-        errorElement: <ErrorComponent />,
-    },
-    {
-        path: "/logout",
-        element: <Logout />,
-        errorElement: <ErrorComponent />,
-    },
-    {
-        path: "/dashboard",
-        element: <Dashboard />,
-        errorElement: <ErrorComponent />,
+        children: [
+            {
+                path: "/",
+                element: <Root />,
+                errorElement: <ErrorComponent />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+                errorElement: <ErrorComponent />,
+            },
+            {
+                path: "/dashboard",
+                element: <Dashboard />,
+                errorElement: <ErrorComponent />,
+            },
+            {
+                path: "/logout",
+                element: <Logout />,
+            },
+        ],
     },
 ]);
 
