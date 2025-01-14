@@ -8,6 +8,7 @@ import NavigationBar from "../components/NavigationBar.jsx";
 function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
+    const ms = 500;
 
     useEffect(() => {
         const controller = new AbortController();
@@ -20,7 +21,7 @@ function GlobalContextProvider() {
                 credentials: "include",
                 method: "get",
             });
-            await sleep(5000);
+            await sleep(ms);
             if (response.status === 200) {
                 setIsLogged(true);
             } else {
