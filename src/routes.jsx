@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./routes/Root.jsx";
-import Login from "./routes/Login.jsx";
+import Login, { action as loginAction } from "./routes/Login.jsx";
 import Logout from "./routes/Logout.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
 import ErrorComponent from "./components/ErrorComponent.jsx";
@@ -20,6 +20,7 @@ const routes = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
+                action: loginAction,
                 errorElement: <ErrorComponent />,
             },
             {

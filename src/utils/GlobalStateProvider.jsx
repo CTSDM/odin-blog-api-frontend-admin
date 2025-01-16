@@ -40,7 +40,9 @@ function GlobalContextProvider() {
                 <div>loading</div>
             ) : (
                 <>
-                    <NavigationBar isLogged={isLogged} />
+                    <header>
+                        <NavigationBar isLogged={isLogged} />
+                    </header>
                     <Outlet />
                 </>
             )}

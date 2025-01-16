@@ -7,7 +7,7 @@ nav {
 
 .bar {
   border: 3px solid black;
-  width: 100%;
+  width: auto;
   display: flex;
   justify-content: space-between;
   background-color: #EEFFFF;

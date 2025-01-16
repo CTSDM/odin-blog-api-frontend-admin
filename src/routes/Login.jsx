@@ -1,96 +1,79 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Form, useNavigate, useActionData } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
+import { env } from "../../config/config.js";
+import styles from "./Login.module.css";
+import InputLogin from "../components/InputLogin.jsx";
 
-function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+export default function Login() {
     const [info, setInfo] = useState("");
     const [, setIsLogged] = useContext(GlobalStateContext);
     const navigate = useNavigate();
+    const status = useActionData();
 
-    function handleChangeCurry(foo) {
-        return function (e) {
-            handleChange(foo, e);
-        };
-    }
-
-    function handleChange(foo, e) {
-        foo(e.currentTarget.value);
-    }
-
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const inputs = [...e.currentTarget.querySelectorAll("input")];
-        const data = {};
-        inputs.forEach((input) => {
-            const name = input.name;
-            const value = input.value;
-            data[name] = value;
-        });
-        await postLogin(data);
-    }
-
-    async function postLogin(data) {
-        const url = "http://localhost:5000/login";
-        const response = await fetch(url, {
-            mode: "cors",
-            credentials: "include",
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                "Access-Control-Allow-Origin": "http://localhost:5000",
-            },
-        });
-        if (response.status === 200) {
-            const newData = await response.json();
-            setInfo("APE IS IN");
-            console.log(newData);
-            setIsLogged(true);
-            navigate("/dashboard");
-            return;
-        } else {
-            setInfo("YOU NOT APE");
-            console.log("the response from the server was not bueno");
-            setIsLogged(false);
-            return;
+    useEffect(() => {
+        if (status) {
+            if (status === 200) {
+                setInfo("APE IS IN");
+                setIsLogged(true);
+                navigate("/dashboard");
+                return;
+            } else {
+                setInfo("YOU NOT APE");
+                setIsLogged(false);
+                return;
+            }
         }
-    }
+    }, [status]);
 
     return (
         <>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            name="username"
-                            id="username"
-                            value={username}
-                            onChange={handleChangeCurry(setUsername)}
-                        />
+            <div className={styles.container}>
+                <Form method="post" action="/login">
+                    <div className={styles["container-inputs"]}>
+                        {env.inputs.login.map((input) => (
+                            <InputLogin
+                                key={input[1]}
+                                type={input[0]}
+                                name={input[1]}
+                                placeholder={input[2]}
+                            />
+                        ))}
+                        <button className={styles.input} type="submit">
+                            Login
+                        </button>
                     </div>
-                    <div>
-                        <label htmlFor="pw">Passwordz:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="pw"
-                            value={password}
-                            onChange={handleChangeCurry(setPassword)}
-                        />
-                    </div>
-                    <div>
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
+                </Form>
                 <div>{info}</div>
             </div>
         </>
     );
 }
 
-export default Login;
+export const action = async ({ request }) => {
+    const data = await request.formData();
+    const submission = {
+        username: data.get("username"),
+        password: data.get("password"),
+    };
+
+    const status = await submitLogin(submission);
+    return status;
+};
+
+async function submitLogin(data) {
+    const url = "http://localhost:5000/login";
+    const response = await fetch(url, {
+        mode: "cors",
+        credentials: "include",
+        method: "post",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:5000",
+        },
+    });
+
+    return response.status;
+}
