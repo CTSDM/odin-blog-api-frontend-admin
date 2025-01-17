@@ -14,7 +14,7 @@ function GlobalContextProvider() {
         const controller = new AbortController();
         (async () => {
             setIsLoading(true);
-            const url = "http://localhost:5000/login";
+            const url = "http://localhost:5000/login/admin";
             const response = await fetch(url, {
                 signal: controller.signal,
                 mode: "cors",

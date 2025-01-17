@@ -12,6 +12,4 @@ const env = {
     },
 };
 
-console.log(env);
-
 export { env, elementsNavBar };

@@ -5,6 +5,7 @@ import Logout from "./routes/Logout.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
 import ErrorComponent from "./components/ErrorComponent.jsx";
 import GlobalContextProvider from "./utils/GlobalStateProvider.jsx";
+import NewPost, { action as newPostAction } from "./routes/NewPost.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -31,6 +32,11 @@ const routes = createBrowserRouter([
             {
                 path: "/logout",
                 element: <Logout />,
+            },
+            {
+                path: "/posts/new",
+                action: newPostAction,
+                element: <NewPost />,
             },
         ],
     },

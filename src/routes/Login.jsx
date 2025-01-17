@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Form, useNavigate, useActionData } from "react-router-dom";
+import { Form, useNavigate, useActionData, redirect } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import { env } from "../../config/config.js";
 import styles from "./Login.module.css";
@@ -21,6 +21,7 @@ export default function Login() {
             } else {
                 setInfo("YOU NOT APE");
                 setIsLogged(false);
+                redirect("/login");
                 return;
             }
         }
@@ -62,7 +63,7 @@ export const action = async ({ request }) => {
 };
 
 async function submitLogin(data) {
-    const url = "http://localhost:5000/login";
+    const url = "http://localhost:5000/login/admin";
     const response = await fetch(url, {
         mode: "cors",
         credentials: "include",
