@@ -1,0 +1,12 @@
+.title label {
+  font-size: 0.9rem;
+}
+
+.title input {
+  font-size: 1.1rem;
+}
+
+.title {
+  display: grid;
+  gap: 3px;
+}

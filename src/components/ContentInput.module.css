@@ -1,0 +1,12 @@
+.content label {
+  font-size: 0.9rem;
+}
+
+.content textarea {
+  font-size: 1.1rem;
+}
+
+.content {
+  display: grid;
+  gap: 3px;
+}

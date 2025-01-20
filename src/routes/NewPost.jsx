@@ -1,4 +1,7 @@
 import { useActionData, Form, Link } from "react-router-dom";
+import TitleInput from "../components/TitleInput.jsx";
+import ContentInput from "../components/ContentInput.jsx";
+import styles from "./NewPost.module.css";
 
 function NewPost() {
     const response = useActionData();
@@ -23,10 +26,10 @@ function NewPost() {
         <div>
             <div>
                 <Form method="post" action="/posts/new">
-                    <label htmlFor="post-title">Title: </label>
-                    <input type="text" name="title" id="post-title" />
-                    <label htmlFor="post-content">Content: </label>
-                    <input type="text" name="content" id="post-content" />
+                    <div className={styles.form}>
+                        <TitleInput />
+                        <ContentInput />
+                    </div>
                     <button type="submit">Submit</button>
                 </Form>
             </div>

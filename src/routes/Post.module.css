@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  border: 4px blue solid;
+  width: 100%;
+  height: fit-content;
+}
+
+.title {
+  font-size: 3rem;
+  color: paleturquoise;
+}
+
+.content {
+  color: grey;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.author {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.comments-container {
+  display: grid;
+  gap: 10px;
+  border: 10px solid yellowgreen;
+  padding: 10px;
+}

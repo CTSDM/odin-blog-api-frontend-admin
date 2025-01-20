@@ -6,6 +6,7 @@ import Dashboard from "./routes/Dashboard.jsx";
 import ErrorComponent from "./components/ErrorComponent.jsx";
 import GlobalContextProvider from "./utils/GlobalStateProvider.jsx";
 import NewPost, { action as newPostAction } from "./routes/NewPost.jsx";
+import Post, { loader as postLoader } from "./routes/Post.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -37,6 +38,12 @@ const routes = createBrowserRouter([
                 path: "/posts/new",
                 action: newPostAction,
                 element: <NewPost />,
+            },
+            {
+                path: "/posts/:postId",
+                loader: postLoader,
+                errorElement: <ErrorComponent />,
+                element: <Post />,
             },
         ],
     },

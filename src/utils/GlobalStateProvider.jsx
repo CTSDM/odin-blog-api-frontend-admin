@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-
 import { Context } from "./GlobalStateContext.js";
 import NavigationBar from "../components/NavigationBar.jsx";
 
 function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
+    const currentUrl = window.location.pathname;
+    const redirectToLogin = isLogged === false && currentUrl !== "/login";
+    const navigate = useNavigate();
     const ms = 500;
 
     useEffect(() => {
@@ -26,13 +28,16 @@ function GlobalContextProvider() {
                 setIsLogged(true);
             } else {
                 setIsLogged(false);
+                if (redirectToLogin === true) {
+                    navigate("/login");
+                }
             }
             setIsLoading(false);
         })();
         return () => {
             controller.abort();
         };
-    }, []);
+    }, [redirectToLogin]);
 
     return (
         <Context.Provider value={[isLogged, setIsLogged]}>
