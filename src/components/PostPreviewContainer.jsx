@@ -17,9 +17,7 @@ function PostPreviewContainer() {
 
     if (postInfo === null) return <div>{"Loading..."}</div>;
     if (postInfo.status !== 200)
-        return (
-            <div>{"The posts couldn't be retrieved. Try again, please."}</div>
-        );
+        return <div>{"The posts couldn't be retrieved. Try again, please."}</div>;
     if (postInfo.data.length === 0)
         return <div>{"Whoops, it looks like there are no entries yet..."}</div>;
     return (
@@ -41,7 +39,7 @@ function PostPreviewContainer() {
 }
 
 async function getAllPosts(controller) {
-    const url = "http://localhost:5000/posts";
+    const url = "http://localhost:5000/posts/complete";
     const response = await fetch(url, {
         signal: controller.signal,
         credentials: "include",

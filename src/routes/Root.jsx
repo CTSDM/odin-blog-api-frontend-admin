@@ -1,4 +1,3 @@
-import routes from "../routes";
 import { redirect } from "react-router-dom";
 import { useContext } from "react";
 import { Context as GlobalContext } from "../utils/GlobalStateContext.js";

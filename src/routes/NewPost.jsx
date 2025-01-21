@@ -14,10 +14,7 @@ function NewPost() {
         divInfo = (
             <div>
                 <span>The post was correctly created. </span>
-                <Link to={`/posts/${response.data.id}`}>
-                    {" "}
-                    Click here to go to the post
-                </Link>
+                <Link to={`/posts/${response.data.id}`}> Click here to go to the post</Link>
             </div>
         );
     }
@@ -29,6 +26,10 @@ function NewPost() {
                     <div className={styles.form}>
                         <TitleInput />
                         <ContentInput />
+                    </div>
+                    <div>
+                        Make the post visible:
+                        <input type="checkbox" name="visible" defaultChecked />
                     </div>
                     <button type="submit">Submit</button>
                 </Form>
@@ -43,6 +44,8 @@ export const action = async ({ request }) => {
     const submission = {
         title: data.get("title"),
         content: data.get("content"),
+        // we convert the data.get('visible') to boolean
+        visible: !!data.get("visible"),
     };
 
     const responseAndJSON = await submitPost(submission);

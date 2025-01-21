@@ -10,7 +10,7 @@ function GlobalContextProvider() {
     const currentUrl = window.location.pathname;
     const redirectToLogin = isLogged === false && currentUrl !== "/login";
     const navigate = useNavigate();
-    const ms = 500;
+    const ms = 2000;
 
     useEffect(() => {
         const controller = new AbortController();
@@ -37,7 +37,7 @@ function GlobalContextProvider() {
         return () => {
             controller.abort();
         };
-    }, [redirectToLogin]);
+    }, []);
 
     return (
         <Context.Provider value={[isLogged, setIsLogged]}>
