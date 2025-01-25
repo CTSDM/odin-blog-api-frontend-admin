@@ -4,6 +4,7 @@ import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import { env } from "../../config/config.js";
 import styles from "./Login.module.css";
 import InputLogin from "../components/InputLogin.jsx";
+import { postLogin } from "../utils/utils.js";
 
 export default function Login() {
     const [info, setInfo] = useState("");
@@ -58,23 +59,6 @@ export const action = async ({ request }) => {
         password: data.get("password"),
     };
 
-    const status = await submitLogin(submission);
+    const status = await postLogin(submission);
     return status;
 };
-
-async function submitLogin(data) {
-    const url = "http://localhost:5000/login/admin";
-    const response = await fetch(url, {
-        mode: "cors",
-        credentials: "include",
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-
-    return response.status;
-}

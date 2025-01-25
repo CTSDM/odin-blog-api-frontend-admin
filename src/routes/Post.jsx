@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import Comment from "../components/Comment";
 import styles from "./Post.module.css";
+import { getPost } from "../utils/utils.js";
 
 export async function loader({ params }) {
     const postId = params.postId;
@@ -13,12 +13,6 @@ export async function loader({ params }) {
 function Post() {
     const response = useLoaderData();
     const post = response && response.data;
-    const [status, setStatus] = useState(post && post.visible);
-
-    function handleClick() {
-        setStatus(!status);
-        changePostVisibility(response.data.id, !status);
-    }
 
     if (response.status !== 200) {
         return <div>{"Something went wrong on the server side!"}</div>;
@@ -27,12 +21,9 @@ function Post() {
     return (
         <div>
             <div className={styles.status}>
-                <div>This is post is currently: {status ? "Visible" : "Not Visible"}</div>
+                <div>This is post is currently: {post.visibility ? "Visible" : "Not Visible"}</div>
                 <div>
-                    Click here to change the status:
-                    <button type="button" onClick={handleClick}>
-                        Change to {status ? "Not Visible" : "Visible"}
-                    </button>
+                    Click <Link to={`/posts/${post.id}/edit`}>here</Link> to edit the post.
                 </div>
             </div>
             <div className={styles.container}>
@@ -60,44 +51,5 @@ function Post() {
 Post.propTypes = {
     params: PropTypes.object,
 };
-
-async function getPost(id) {
-    const url = `http://localhost:5000/posts/${id}`;
-    const response = await fetch(url, {
-        credentials: "include",
-        method: "get",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    if (!response.ok) {
-        return { status: response.status };
-    }
-    const json = await response.json();
-    return { status: response.status, data: json };
-}
-
-async function changePostVisibility(id, visible) {
-    const data = { id, visible };
-    console.log(data);
-    const url = `http://localhost:5000/posts/${id}`;
-    const response = await fetch(url, {
-        credentials: "include",
-        method: "put",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    if (!response.ok) {
-        return { status: response.status };
-    }
-    const json = await response.json();
-    return { status: response.status, data: json };
-}
 
 export default Post;

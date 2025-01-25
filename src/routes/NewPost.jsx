@@ -1,6 +1,7 @@
 import { useActionData, Form, Link } from "react-router-dom";
 import TitleInput from "../components/TitleInput.jsx";
 import ContentInput from "../components/ContentInput.jsx";
+import Visibility from "../components/Visibility.jsx";
 import styles from "./NewPost.module.css";
 
 function NewPost() {
@@ -26,10 +27,7 @@ function NewPost() {
                     <div className={styles.form}>
                         <TitleInput />
                         <ContentInput />
-                    </div>
-                    <div>
-                        Make the post visible:
-                        <input type="checkbox" name="visible" defaultChecked />
+                        <Visibility />
                     </div>
                     <button type="submit">Submit</button>
                 </Form>

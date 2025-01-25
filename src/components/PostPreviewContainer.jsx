@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PostPreview from "./PostPreview.jsx";
 import styles from "./PostPreviewContainer.module.css";
+import { getAllPosts } from "../utils/utils.js";
 
 function PostPreviewContainer() {
     const [postInfo, setPostInfo] = useState(null);
@@ -36,22 +37,6 @@ function PostPreviewContainer() {
             })}
         </div>
     );
-}
-
-async function getAllPosts(controller) {
-    const url = "http://localhost:5000/posts/complete";
-    const response = await fetch(url, {
-        signal: controller.signal,
-        credentials: "include",
-        method: "get",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    const json = await response.json();
-    return { status: response.status, data: json };
 }
 
 export default PostPreviewContainer;

@@ -7,6 +7,10 @@ import ErrorComponent from "./components/ErrorComponent.jsx";
 import GlobalContextProvider from "./utils/GlobalStateProvider.jsx";
 import NewPost, { action as newPostAction } from "./routes/NewPost.jsx";
 import Post, { loader as postLoader } from "./routes/Post.jsx";
+import PostEdit, {
+    loader as postEditLoader,
+    action as postEditAction,
+} from "./components/PostEdit.jsx";
 
 const routes = createBrowserRouter([
     {
@@ -36,14 +40,21 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/posts/new",
-                action: newPostAction,
                 element: <NewPost />,
+                action: newPostAction,
             },
             {
                 path: "/posts/:postId",
+                element: <Post />,
                 loader: postLoader,
                 errorElement: <ErrorComponent />,
-                element: <Post />,
+            },
+            {
+                path: "/posts/:postId/edit",
+                element: <PostEdit />,
+                loader: postEditLoader,
+                action: postEditAction,
+                errorElement: <ErrorComponent />,
             },
         ],
     },

@@ -7,7 +7,6 @@ import styles from "./Dashboard.module.css";
 
 function Dashboard() {
     const [isLogged] = useContext(GlobalContext);
-    console.log(isLogged);
     if (isLogged) {
         return (
             <>
