@@ -10,6 +10,8 @@ const env = {
             ["password", "password", import.meta.env.VITE_PASSWORD_PLACEHOLDER],
         ],
     },
+    api_tinycloud: import.meta.env.VITE_APIKEY_TINYCLOUD,
+    server_url: import.meta.env.VITE_SERVER_URL,
 };
 
 export { env, elementsNavBar };

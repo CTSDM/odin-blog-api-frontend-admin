@@ -14,8 +14,10 @@ function Post() {
     const response = useLoaderData();
     const post = response && response.data;
 
-    if (response.status !== 200) {
+    if (response.status >= 500) {
         return <div>{"Something went wrong on the server side!"}</div>;
+    } else if (response.status == 404) {
+        return <div>{"The post could not be found."}</div>;
     }
 
     return (

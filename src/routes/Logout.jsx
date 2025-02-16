@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import { Context as GlobalContext } from "../utils/GlobalStateContext.js";
+import { env } from "../../config/config.js";
 import routes from "../routes.jsx";
 
 function Logout() {
@@ -7,7 +8,7 @@ function Logout() {
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
-            const url = "http://localhost:5000/logout";
+            const url = `${env.server_url}/logout`;
             const response = await fetch(url, {
                 mode: "cors",
                 method: "post",

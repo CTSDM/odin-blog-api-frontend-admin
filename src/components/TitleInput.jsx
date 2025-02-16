@@ -17,7 +17,7 @@ function TitleInput({ defaultValue }) {
 }
 
 TitleInput.propTypes = {
-    defaultValue: PropTypes.string.isRequired,
+    defaultValue: PropTypes.string,
 };
 
 export default TitleInput;

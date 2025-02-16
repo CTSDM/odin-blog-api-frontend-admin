@@ -10,11 +10,11 @@ export default function Login() {
     const [info, setInfo] = useState("");
     const [, setIsLogged] = useContext(GlobalStateContext);
     const navigate = useNavigate();
-    const status = useActionData();
+    const response = useActionData();
 
     useEffect(() => {
-        if (status) {
-            if (status === 200) {
+        if (response && response.status) {
+            if (response.status === 200 && response["is_admin"]) {
                 setInfo("APE IS IN");
                 setIsLogged(true);
                 navigate("/dashboard");
@@ -26,7 +26,7 @@ export default function Login() {
                 return;
             }
         }
-    }, [status]);
+    }, [response]);
 
     return (
         <>
@@ -59,6 +59,5 @@ export const action = async ({ request }) => {
         password: data.get("password"),
     };
 
-    const status = await postLogin(submission);
-    return status;
+    return await postLogin(submission);
 };

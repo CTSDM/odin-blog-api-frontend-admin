@@ -1,12 +1,13 @@
+import { env } from "../../config/config";
+
 async function getPost(id) {
-    const url = `http://localhost:5000/posts/${id}`;
+    const url = `${env.server_url}/posts/${id}`;
     const response = await fetch(url, {
         credentials: "include",
         method: "get",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
         },
     });
     if (!response.ok) {
@@ -17,7 +18,7 @@ async function getPost(id) {
 }
 
 async function postLogin(data) {
-    const url = "http://localhost:5000/login/admin";
+    const url = `${env.server_url}/login/admin`;
     const response = await fetch(url, {
         mode: "cors",
         credentials: "include",
@@ -26,15 +27,15 @@ async function postLogin(data) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
         },
     });
 
-    return response.status;
+    const json = await response.json();
+    return { status: response.status, ...json };
 }
 
 async function postPost(submission) {
-    const url = "http://localhost:5000/posts";
+    const url = `${env.server_url}/posts`;
     const response = await fetch(url, {
         credentials: "include",
         method: "post",
@@ -42,7 +43,6 @@ async function postPost(submission) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
         },
     });
     const json = await response.json();
@@ -50,7 +50,7 @@ async function postPost(submission) {
 }
 
 async function putDeletePost(submission) {
-    const url = "http://localhost:5000/posts/" + submission.id;
+    const url = `${env.server_url}/posts/` + submission.id;
     const response = await fetch(url, {
         credentials: "include",
         method: submission.method,
@@ -58,7 +58,6 @@ async function putDeletePost(submission) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
         },
     });
     const json = await response.json();
@@ -66,7 +65,7 @@ async function putDeletePost(submission) {
 }
 
 async function getAllPosts(controller) {
-    const url = "http://localhost:5000/posts/admin/complete";
+    const url = `${env.server_url}/posts/admin/complete`;
     const response = await fetch(url, {
         signal: controller.signal,
         credentials: "include",
@@ -74,11 +73,24 @@ async function getAllPosts(controller) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
         },
     });
     const json = await response.json();
     return { status: response.status, data: json };
 }
 
-export { getPost, postLogin, postPost, putDeletePost, getAllPosts };
+async function deleteComment(data) {
+    const url = `${env.server_url}/comments`;
+    const response = await fetch(url, {
+        credentials: "include",
+        method: "delete",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+    });
+    return { status: response.status };
+}
+
+export { getPost, postLogin, postPost, putDeletePost, getAllPosts, deleteComment };

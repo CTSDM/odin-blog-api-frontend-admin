@@ -3,6 +3,7 @@ import TitleInput from "../components/TitleInput.jsx";
 import ContentInput from "../components/ContentInput.jsx";
 import Visibility from "../components/Visibility.jsx";
 import styles from "./NewPost.module.css";
+import { env } from "../../config/config.js";
 
 function NewPost() {
     const response = useActionData();
@@ -51,7 +52,7 @@ export const action = async ({ request }) => {
 };
 
 async function submitPost(submission) {
-    const url = "http://localhost:5000/posts";
+    const url = `${env.server_url}/posts`;
     const response = await fetch(url, {
         credentials: "include",
         method: "post",
@@ -59,7 +60,6 @@ async function submitPost(submission) {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
         },
     });
     const json = await response.json();

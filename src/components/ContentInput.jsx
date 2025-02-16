@@ -18,7 +18,7 @@ function ContentInput({ defaultValue }) {
 }
 
 ContentInput.propTypes = {
-    defaultValue: PropTypes.string.isRequired,
+    defaultValue: PropTypes.string,
 };
 
 export default ContentInput;

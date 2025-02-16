@@ -40,7 +40,7 @@ function PostEdit() {
                         <input type="hidden" name="id" value={post.id} />
                         <TitleInput defaultValue={post.title} />
                         <ContentInput defaultValue={post.content} />
-                        <Visibility defaultValue={post.visibility} />
+                        <Visibility defaultValue={post.visible} />
                     </div>
                     <button type="submit">Submit</button>
                 </Form>
