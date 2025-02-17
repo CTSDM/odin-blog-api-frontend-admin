@@ -93,4 +93,19 @@ async function deleteComment(data) {
     return { status: response.status };
 }
 
-export { getPost, postLogin, postPost, putDeletePost, getAllPosts, deleteComment };
+async function submitSignup(data) {
+    const url = `${env.server_url}/signup`;
+    const response = await fetch(url, {
+        mode: "cors",
+        credentials: "include",
+        method: "post",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const json = await response.json();
+    return { status: response.status, data: json };
+}
+
+export { getPost, postLogin, postPost, putDeletePost, getAllPosts, deleteComment, submitSignup };

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useLoaderData, Link } from "react-router-dom";
 import Comment from "../components/Comment";
 import styles from "./Post.module.css";
-import { getPost } from "../utils/utils.js";
+import { getPost } from "../utils/requests.js";
 
 export async function loader({ params }) {
     const postId = params.postId;

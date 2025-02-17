@@ -11,8 +11,9 @@ import PostEdit, {
     loader as postEditLoader,
     action as postEditAction,
 } from "./components/PostEdit.jsx";
+import Signup, { action as signupAction } from "./routes/Signup.jsx";
 
-const routes = createBrowserRouter([
+const routesConfig = [
     {
         path: "/",
         element: <GlobalContextProvider />,
@@ -39,6 +40,12 @@ const routes = createBrowserRouter([
                 element: <Logout />,
             },
             {
+                path: "/signup",
+                element: <Signup />,
+                errorElement: <ErrorComponent />,
+                action: signupAction,
+            },
+            {
                 path: "/posts/new",
                 element: <NewPost />,
                 action: newPostAction,
@@ -58,6 +65,9 @@ const routes = createBrowserRouter([
             },
         ],
     },
-]);
+];
 
-export default routes;
+const routes = createBrowserRouter(routesConfig);
+
+export default routesConfig;
+export { routes };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PostPreview from "./PostPreview.jsx";
 import styles from "./PostPreviewContainer.module.css";
-import { getAllPosts } from "../utils/utils.js";
+import { getAllPosts } from "../utils/requests.js";
 
 function PostPreviewContainer() {
     const [postInfo, setPostInfo] = useState(null);

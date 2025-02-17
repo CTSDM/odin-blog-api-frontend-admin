@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./Comment.module.css";
-import { deleteComment } from "../utils/utils.js";
+import { deleteComment } from "../utils/requests.js";
 
 function Comment({ id, author, content, createdTime }) {
     async function handleOnClick() {

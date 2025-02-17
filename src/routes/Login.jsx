@@ -4,7 +4,7 @@ import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import { env } from "../../config/config.js";
 import styles from "./Login.module.css";
 import InputLogin from "../components/InputLogin.jsx";
-import { postLogin } from "../utils/utils.js";
+import { postLogin } from "../utils/requests.js";
 
 export default function Login() {
     const [info, setInfo] = useState("");

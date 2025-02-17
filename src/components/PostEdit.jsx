@@ -5,7 +5,7 @@ import ContentInput from "./ContentInput";
 import PropTypes from "prop-types";
 import styles from "./PostEdit.module.css";
 import Visibility from "./Visibility";
-import { getPost, putDeletePost } from "../utils/utils";
+import { getPost, putDeletePost } from "../utils/requests.js";
 
 function PostEdit() {
     const responseLoader = useLoaderData();
